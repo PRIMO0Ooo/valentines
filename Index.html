@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <title>Will You be?</title>
+</head>
+<body>
+    <div id="div1">
+        <h1>Will you be my VALENTINE?</h1>
+        <img src="img/1.gif" id="image">
+
+        <div>
+            <button id="btn-yes" onclick="acceptValentine()">Yes</button>
+            <button id="btn-no" onclick="changeNoButton()">No</button>
+    </div>
+    </div>
+    <audio id="celebrationSound">
+        <source src="https://www.youtube.com/watch?v=8xg3vE8Ie_E" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const noResponses = [
+            "Are you sure?",
+            "Really sure?",
+            "i thought your smart",
+            "Last chance!",
+            "i'm gonna cry",
+        ];
+
+        const images = [
+            "img/3.gif",  // Replace with your image paths
+            "img/4.gif",
+            "img/5.gif",
+            "img/6.gif",
+            "img/7.gif"
+        ];
+
+        let noCount = 0;
+        const maxResponses = noResponses.length;
+
+        function changeNoButton() {
+            const noBtn = document.getElementById("btn-no");
+            const yesBtn = document.getElementById("btn-yes");
+            const image = document.getElementById("image");
+            
+            // Change text
+            noBtn.innerHTML = noResponses[noCount % maxResponses];
+            
+            // Change image
+            image.src = images[noCount % images.length];
+            
+            // Make "Yes" button bigger and "No" button smaller
+            yesBtn.style.transform = `scale(${1 + (noCount * 0.1)})`;
+            noBtn.style.transform = `scale(${1 - (noCount * 0.1)})`;
+            
+            noCount++;
+        }
+
+        function playSound() {
+            const sound = document.getElementById('celebrationSound');
+            sound.currentTime = 0; // Reset sound to start
+            sound.volume = 0.5; // Set volume to 50%
+            
+            // Play the sound
+            sound.play().catch(function(error) {
+                console.log("Sound play failed:", error);
+            });
+        }
+
+        function acceptValentine() {
+            const div1 = document.getElementById("div1");
+            div1.innerHTML = `
+                <h1>Yeheyyyyy! ❤️</h1>
+                <img src="img/8.gif" alt="Happy Valentine">
+                <p style="font-size: 20px; color: #ff4d4d;">Can't wait to spend Valentine's Day with you! I love you baby!</p>
+            `;
+            playSound();
+        }
+        </script>
+</body>
+</html>
